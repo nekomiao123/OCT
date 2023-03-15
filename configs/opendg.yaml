@@ -1,6 +1,6 @@
 # experiment name
-exp_name: "OpenDA_OCT_OVA"
-exp_desc: "OpenDA OCT OVA"
+exp_name: "OpenDA_OCT"
+exp_desc: "OpenDA_OCT"
 model_name: ${exp_name}
 
 # root path of dataset
