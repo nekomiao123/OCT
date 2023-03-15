@@ -40,7 +40,6 @@ def ini_model(cfg, num_classes):
         print("=> creating model '{}'".format("resnet50"))
         return model
     elif cfg.model == "OVANet":
-        # G for the feature extractor and C1 for the closed classifier and C2 for the open classifier
         G, C1, C2, opt_g, opt_c = get_models(cfg, num_classes)
         G = G.to(device)
         C1 = C1.to(device)
@@ -77,7 +76,6 @@ def train_one_epoch(G, C1, C2, source_loader, target_loader, opt_g, opt_c, crite
         aug_img = data_s['svdna_images']
         img_t = data_t['images']
         nearest_img_t = data_t['nearest_images']
-        # p_id_s = data_s['patient_ids']
 
         all_img = torch.cat([img_s, aug_img], dim=0)
         all_label = torch.cat([label, label], dim=0)
@@ -124,7 +122,7 @@ def train_one_epoch(G, C1, C2, source_loader, target_loader, opt_g, opt_c, crite
 
         ent_open = 0.5 * (ent_open + ent_open_near)
 
-        # Soft consistenty regularization
+        # consistenty regularization
         out_open_t = F.softmax(out_open_t, 1)
         out_open_near = F.softmax(out_open_near, 1)
         L_nscr = torch.mean(torch.sum(torch.sum(torch.abs(
