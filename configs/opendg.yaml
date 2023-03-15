@@ -1,0 +1,47 @@
+# experiment name
+exp_name: "OpenDA_OCT_OVA"
+exp_desc: "OpenDA OCT OVA"
+model_name: ${exp_name}
+
+# root path of dataset
+root: "./DATASET/OCT_DG"
+data: "OCT"
+source: "B"
+target: "S"
+OpenDA: True
+
+batch_size: 32
+num_epoch: 100
+learning_rate: 3e-4
+weight_decay: 0.01
+workers: 2
+
+model: "OVANet"
+
+# lr
+scheduler: 'WarmupInvLR'
+warm_up: 10
+T_max: 100
+min_lr: 1e-6
+
+train:
+  min_step: 10000 # minimum steps to run. run epochs until it exceeds the minStep
+  lr: 0.001 # learning rate for new layers. learning rate for finetune is 1/10 of lr
+  multi: 0.001
+  weight_decay: 0.0005
+  sgd_momentum: 0.9
+  momentum: 0.0
+  eta: 0.05
+  log_interval: 200
+  thr: 1.15
+  margin: 0.5
+  ent_ratio: 0.1
+  mixup_alpha: 1.0
+  mixup_rate: 1.0
+  nscr_ratio: 1.0
+
+test:
+  test_interval: 100
+  test_only: False # test a given model and exit
+  resume_file: '' # model to test
+  test_feat: False
